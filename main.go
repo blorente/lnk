@@ -51,10 +51,21 @@ func registerHandleLinkSlugs(app *pocketbase.PocketBase) {
 	)
 }
 
+type Args struct {
+	datadir string
+}
+
 func main() {
-	// TODO Accept data dir
-	app := pocketbase.New()
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+
+	// args := Args{}
+	// flag.StringVar(&args.datadir, "datadir", "/tmp/pb_data", "Directory to store the pocketbase data")
+	// flag.Parse()
+	// log.Info().Any("config", args).Msg("Initialized with config")
+
+	app := pocketbase.NewWithConfig(&pocketbase.Config{
+		// DefaultDataDir: args.datadir,
+	})
 	log.Info().Msg("Setting up")
 
 	log.Info().Msg("Installing hooks")
