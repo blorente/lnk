@@ -40,7 +40,9 @@ func registerHandleLinkSlugs(app *pocketbase.PocketBase) {
 				if err := app.Dao().SaveRecord(record); err != nil {
 					return err
 				}
-				return c.Redirect(http.StatusPermanentRedirect, target)
+				err = c.Redirect(http.StatusPermanentRedirect, target)
+				log.Debug().Msg("Redirect successful")
+				return err
 			},
 			Middlewares: []echo.MiddlewareFunc{
 				apis.ActivityLogger(app),
